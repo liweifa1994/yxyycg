@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kargo.yycg.base.dao.mapper.SystemConfigMapperCustom" >
+  <resultMap type="com.kargo.yycg.base.pojo.vo.Menu" id="moduleAndOperateResultMap">
+    <id property="menuid" column="menuid" />
+    <result property="menuname" column="menuname"/>
+    <result property="url" column="url"/>
+    <collection property="menus" ofType="com.kargo.yycg.base.pojo.vo.Menu">
+      <id property="menuid" column="menuid_child" />
+      <result property="menuname" column="menuname_child"/>
+      <result property="url" column="url_child"/>
+      <collection property="operations" ofType="com.kargo.yycg.base.pojo.vo.Operation">
+        <id property="operationId" column="operationId" />
+        <result property="actionUrl" column="actionUrl"/>
+        <result property="operationName" column="operationName"/>
+      </collection>
+    </collection>
+
+  </resultMap>
+
+  <!-- 获取当前系统时间 -->
+  <select id="getdatabasetime" resultType="java.lang.String">
+    select sysdate()
+  </select>
+
+  <!-- 权限菜单及操作 -->
+  <select id="findModuleAndOperateByRole" parameterType="java.lang.String" resultMap="moduleAndOperateResultMap" >
+    select menu.*,
+    o.method      actionUrl,
+    o.operateid   operationId,
+    o.operatename operationName
+    from (select m1.moduleid menuid,
+    m1.name     menuname,
+    m1.url,
+    m2.moduleid menuid_child,
+    m2.name     menuname_child,
+    m2.url      url_child
+    from BSS_SYS_MODULE m1
+
+    left join BSS_SYS_MODULE m2
+    on m1.moduleid = m2.parentid
+
+    where m1.parentid = '0'
+    and m2.parentid != '0'
+    order by m1.showorder, m2.showorder
+    ) menu
+    left join bss_sys_operate o
+    on menu.menuid_child = o.moduleid
+    where exists (select 1
+    from bss_sys_role        b1,
+    bss_sys_rolesys     b2,
+    bss_sys_rolenode    b3,
+    bss_sys_rolemodule  b4,
+    bss_sys_roleoperate b5
+    where b1.roleid=#{roleid}
+    and  b1.roleid=b2.roleid
+    and  b2.rsid = b3.rsid
+    and  b3.rnid = b4.rnid
+    and  b4.rmid = b5.rmid
+    and b5.operateid = o.operateid)
+  </select>
+</mapper>

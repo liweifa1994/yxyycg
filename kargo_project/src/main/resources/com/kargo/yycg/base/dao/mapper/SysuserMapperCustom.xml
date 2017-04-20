@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kargo.yycg.base.dao.mapper.SysuserMapperCustom" >
+
+  <sql id="query_sysuser_where" >
+      <if test="sysuserCustom !=null ">
+          <if test="sysuser.userid!=null and sysuser.userid!=''">
+              and sysuser.userid = #{sysuser.userid}
+          </if>
+          <if test="sysuser.username!=null and sysuser.username!=''">
+              and sysuser.username = #{sysuser.username}
+          </if>
+          <if test="sysuserCustom.sysmc!=null and sysuserCustom.sysmc!=''">
+              and sysuser.sysmc like '%${sysuserCustom.sysmc}%'
+          </if>
+          <if test="sysuser.groupid!=null and sysuser.groupid!=''">
+              and sysuser.groupid = #{sysuser.groupid}
+          </if>
+      </if>
+
+  </sql>
+  <select id="findSysuserListByCondition" parameterType="com.kargo.yycg.base.pojo.vo.SysuserQueryVo" resultType="com.kargo.yycg.base.pojo.vo.SysuserCustom">
+    SELECT  * from
+                      (
+      SELECT  userstate,id,userid,username,groupid ,sysid,CASE  sysuser.groupid
+                                WHEN '1' THEN (select mc from userjd where id = sysuser.sysid)
+                                WHEN '2' THEN (select mc from userjd where id = sysuser.sysid)
+                                WHEN '3' THEN (select mc from useryy where id = sysuser.sysid)
+                                WHEN '4' THEN (select mc from usergys where id = sysuser.sysid)
+                   END sysmc,(select m.info from dictinfo m where m.dictcode=sysuser.groupid and m.typecode='s01')groupname  FROM  sysuser ) sysuser
+          <where>
+              <include refid="query_sysuser_where"></include>
+          </where>
+  </select>
+  
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Sun Mar 09 14:42:38
+	CST 2014 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kargo.yycg.base.dao.mapper.AreaManagerMapperCustom">
+
+    <sql id="areaTressByAreaid">
+
+        <if test="arealevel !=null and arealevel !='' ">
+            arealevel = ${arealevel}
+        </if>
+    </sql>
+
+    <!-- 根据用户名查询该用户可以操作的区域权限信息 -->
+    <select id="selectAreaidByuserid" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select areaid from USERAREA where userid = #{value}
+    </select>
+
+    <!-- 根据区域根id查询区域树 -->
+    <select id="selectAreaTreeByAreaid" parameterType="com.kargo.yycg.base.pojo.po.BssSysArea"
+            resultType="com.kargo.yycg.base.pojo.vo.AreaCustom">
+ select t1.areaid id,t1.areaname name,t1.*,
+  case when exists(select * from
+    (SELECT * FROM bss_sys_area WHERE find_in_set(AREAID,findAreaIdsByParentId('${areaid}'))) t2
+where t1.AREAID = t2.parentId) then '0' else '1' end  as isleaf
+from (SELECT * FROM bss_sys_area WHERE find_in_set(AREAID,findAreaIdsByParentId('${areaid}'))) t1
+<where>
+    <include refid="areaTressByAreaid"></include>
+</where>
+
+    </select>
+    <!-- 根据区域根id查询子区域 -->
+    <select id="selectAreaListByParentid" parameterType="java.lang.String"
+            resultType="com.kargo.yycg.base.pojo.vo.AreaCustom">
+  select t1.areaid id,t1.areaname name,t1.*,
+  case when exists(select * from
+    (SELECT * FROM bss_sys_area WHERE find_in_set(AREAID,findAreaIdsByParentId('${value}'))) t2
+where t1.AREAID = t2.parentId) then '0' else '1' end  as isleaf
+from (SELECT * FROM bss_sys_area WHERE find_in_set(AREAID,findAreaIdsByParentId('${value}'))) t1;
+    </select>
+
+</mapper>

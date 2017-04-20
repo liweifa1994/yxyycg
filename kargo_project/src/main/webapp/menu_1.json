@@ -1,0 +1,46 @@
+{
+   "menus" : [{"icon" : "icon-sys","menuid" : "1","menuname" : "药品目录","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "药品中标目录","url" : "ypml/ypxxquery.action","operations" : [
+                   {"actionUrl" : "ypml/ypxxquery.action","operationName" : "药品信息查询显示"},
+                   {"actionUrl" : "ypml/ypxxquery_result.action","operationName" : "药品信息查询结果"},
+                   {"actionUrl" : "ypml/ypxximport.action","operationName" : "药品信息导入"},
+                   {"actionUrl" : "ypml/ypxximportsubmit.action","operationName" : "药品信息导入提交"},
+                   {"actionUrl" : "ypml/ypxxexport.action","operationName" : "药品信息导出"},
+                   {"actionUrl" : "ypml/ypxxdel.action","operationName" : "药品信息删除"},
+                   {"actionUrl" : "ypml/ypxxedit.action","operationName" : "药品信息修改"},
+                   {"actionUrl" : "ypml/ypxxsave.action","operationName" : "药品信息保存"}]
+                 }]
+               },
+               {"icon" : "icon-sys","menuid" : "2","menuname" : "系统管理","url" : "","menus" : [
+                {"icon" : "icon-log","menuid" : "2_1","menuname" : "监督单位维护","url" : "user/userjdquery.action","operations" : [
+                  {"actionUrl" : "user/userjdquery.action","operationName" : "监督单位查询显示"},
+                  {"actionUrl" : "user/userjdquery_result.action","operationName" : "监督单位查询结果"},
+                  {"actionUrl" : "user/userjdedit.action","operationName" : "监督单位信息编辑"},
+                  {"actionUrl" : "user/userjdsave.action","operationName" : "监督单位信息保存"},
+                  {"actionUrl" : "user/userjddel.action","operationName" : "监督单位信息删除"}]
+                },
+                {"icon" : "icon-log","menuid" : "2_2","menuname" : "医院维护","url" : "user/useryyquery.action","operations" : [
+                  {"actionUrl" : "user/useryyquery.action","operationName" : "医院信息查询显示"},
+                  {"actionUrl" : "user/useryyquery_result.action","operationName" : "医院信息查询结果"},
+                  {"actionUrl" : "user/useryyedit.action","operationName" : "医院信息编辑"},
+                  {"actionUrl" : "user/useryysave.action","operationName" : "医院信息保存"},
+                  {"actionUrl" : "user/useryydel.action","operationName" : "医院信息删除"}]
+                },
+                {"icon" : "icon-log","menuid" : "2_3","menuname" : "供应商维护","url" : "user/usergysquery.action","operations" : [
+                  {"actionUrl" : "user/usergysquery.action","operationName" : "供应商查询显示"},
+                  {"actionUrl" : "user/usergysquery_result.action","operationName" : "供应商查询结果"},
+                  {"actionUrl" : "user/usergysedit.action","operationName" : "供应商信息编辑"},
+                  {"actionUrl" : "user/usergyssave.action","operationName" : "供应商信息保存"},
+                  {"actionUrl" : "user/usergysdel.action","operationName" : "供应商信息删除"}]
+                },
+                {"icon" : "icon-log","menuid" : "2_4","menuname" : "开户","url" : "user/sysuserquery.action","operations" : [
+                  {"actionUrl" : "user/sysuserquery.action","operationName" : "系统用户查询显示"},
+                  {"actionUrl" : "user/sysuserquery_result.action","operationName" : "系统用户查询结果"},
+                  {"actionUrl" : "user/sysuseredit.action","operationName" : "系统用户信息编辑"},
+                  {"actionUrl" : "user/sysusersave.action","operationName" : "系统用户信息保存"},
+                  {"actionUrl" : "user/sysuserdel.action","operationName" : "系统用户信息删除"}]
+                }
+                ]
+              }
+             ]
+}
