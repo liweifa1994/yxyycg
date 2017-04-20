@@ -86,7 +86,7 @@
  </HEAD>
 <BODY>
 <form id="sysusereditform" name="sysusereditform" action="${baseurl}/user/sysusersave.action" method="post">
-<input type="hidden" name="sysuser.id" value="${sysuser.id}"/>
+<input type="hidden" name="sysuserCustom.id" value="${sysuser.id}"/>
 <TABLE border=0 cellSpacing=0 cellPadding=0 width="100%" bgColor=#c4d8ed>
 		<TBODY>
 			<TR>

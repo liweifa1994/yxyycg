@@ -200,6 +200,9 @@ public class UserManagerServiceImpl implements UserManagerService {
     public String checkSysmcByGroupIdAndSysMc(SysuserCustom sysuserCustom) throws Exception {
         String sysmc = sysuserCustom.getSysmc();
         String groupId = sysuserCustom.getGroupid();
+        if(groupId.equals("0")){
+            return "admin";
+        }
         if(StringUtils.isEmpty(groupId)||StringUtils.isEmpty(sysmc)){
             ResultUtil.throwExcepion(211);
         }
@@ -377,7 +380,7 @@ public class UserManagerServiceImpl implements UserManagerService {
         baseDaoFacade.getUsergysMapper().updateByPrimaryKeyWithBLOBs(usergys);
 
         //供货区域
-        if(usergysghdqid != null){
+        if(StringUtils.isNoneBlank(usergysghdqid)){
             saveUsergysGhdq(usergys.getId(),usergysghdqid.split(","));
         }
     }
